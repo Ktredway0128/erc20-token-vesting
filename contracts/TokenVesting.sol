@@ -69,6 +69,7 @@ contract TokenVesting is AccessControl, ReentrancyGuard {
     ) external onlyRole(ADMIN_ROLE) {
 
         require(amount > 0, "Amount must be greater than 0");
+        require(cliffDuration <= duration, "Cliff longer than duration");
         require(duration > 0, "Duration must be greater than 0");
         require(getWithdrawableAmount() >= amount, "Not enough tokens");
 
@@ -108,7 +109,6 @@ contract TokenVesting is AccessControl, ReentrancyGuard {
         );
 
         uint256 amount = computeReleasableAmount(schedule);
-
         require(amount > 0, "No tokens available");
 
         schedule.released += amount;
@@ -120,26 +120,19 @@ contract TokenVesting is AccessControl, ReentrancyGuard {
     }
 
     function revoke(bytes32 vestingId) external onlyRole(ADMIN_ROLE) {
-
         VestingSchedule storage schedule = vestingSchedules[vestingId];
 
+        require(schedule.initialized, "Invalid vesting");
         require(!schedule.revoked, "Already revoked");
 
-        uint256 releasable = computeReleasableAmount(schedule);
-
-        if (releasable > 0) {
-            release(vestingId);
-        }
-
-        uint256 unreleased = schedule.totalAmount - schedule.released;
-        uint256 returnedAmount = unreleased;
-
-        vestingSchedulesTotalAmount -= unreleased;
+        
+        uint256 vested = computeReleasableAmount(schedule); // amount beneficiary can claim
+        uint256 unreleased = schedule.totalAmount - schedule.released - vested; // only unvested
+        vestingSchedulesTotalAmount -= unreleased; // only reduce for unvested tokens
 
         schedule.revoked = true;
 
-        emit VestingRevoked(
-            vestingId, schedule.beneficiary, returnedAmount);
+        emit VestingRevoked(vestingId, schedule.beneficiary, unreleased);
     }
 
     function computeReleasableAmount(VestingSchedule memory schedule)
@@ -157,6 +150,7 @@ contract TokenVesting is AccessControl, ReentrancyGuard {
 
         uint256 vested = (schedule.totalAmount *
             (block.timestamp - schedule.start)) / schedule.duration;
+
 
         return vested - schedule.released;
     }
@@ -178,5 +172,10 @@ contract TokenVesting is AccessControl, ReentrancyGuard {
         returns (VestingSchedule memory)
     {
         return vestingSchedules[vestingId];
+    }
+
+    function withdraw(uint256 amount) external onlyRole(ADMIN_ROLE) {
+        require(getWithdrawableAmount() >= amount, "Not enough free tokens");
+        token.safeTransfer(msg.sender, amount);
     }
 }
