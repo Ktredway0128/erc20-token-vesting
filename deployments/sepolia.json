@@ -7,7 +7,7 @@
       "deployedAt": "2026-03-19"
     },
     "TokenVesting": {
-      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "address": "0x81F71D5D73383750C9d4BCe65C493A55BA887ecB",
       "etherscan": "https://sepolia.etherscan.io/address/0x2922Ff891f0EFC440765AD53fb85482694783781#code",
       "deployedAt": "2026-03-19",
       "constructorArgs": {
