@@ -1,6 +1,6 @@
 # ERC-20 TOKEN VESTING CONTRACT
 
-[![Verified on Etherscan](https://img.shields.io/badge/Etherscan-Verified-brightgreen)](https://sepolia.etherscan.io/address/0x2922ff891f0efc440765ad53fb85482694783781#code)
+[![Verified on Etherscan](https://img.shields.io/badge/Etherscan-Verified-brightgreen)](https://sepolia.etherscan.io/address/0x81F71D5D73383750C9d4BCe65C493A55BA887ecB#code)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.19-blue)
@@ -216,11 +216,6 @@ Sign transactions using the deployer's wallet
 This contract requires the ERC-20 token to be deployed first.
 The token address is passed into the vesting contract constructor.
 
-## DEPLOYMENT
-
-This contract requires the ERC-20 token to be deployed first.
-The token address is passed into the vesting contract constructor.
-
 ### STEP 1 - Deploy the token:
 
 npx hardhat run scripts/deploy-token.js --network sepolia
@@ -244,9 +239,9 @@ Outputs the deployed contract address
 | Contract | Address | Etherscan |
 |----------|---------|-----------|
 | SampleToken | `0x036150039c33b1645080a9c913f96D4c65ccca48` | [View on Etherscan](https://sepolia.etherscan.io/address/0x036150039c33b1645080a9c913f96D4c65ccca48#code) |
-| TokenVesting | `0x2922Ff891f0EFC440765AD53fb85482694783781` | [View on Etherscan](https://sepolia.etherscan.io/address/0x2922Ff891f0EFC440765AD53fb85482694783781#code) |
+| TokenVesting | `0x81F71D5D73383750C9d4BCe65C493A55BA887ecB` | [View on Etherscan](https://sepolia.etherscan.io/address/0x81F71D5D73383750C9d4BCe65C493A55BA887ecB#code) |
 
-Deployed: 2026-03-19
+Deployed: 2026-03-26
 
 
 ## SECURITY PRACTICES
