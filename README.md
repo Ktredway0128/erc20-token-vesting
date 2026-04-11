@@ -168,7 +168,7 @@ This modular architecture provides strong security and reusable functionality wh
 
 git clone https://github.com/Ktredway0128/token-vesting
 
-cd erc20-token-vesting
+cd token-vesting
 
 ### INSTALL DEPENDENCIES:
 
